@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="neon">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark"><title>USDT Business Manager</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#020806"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="USDT Manager"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--redbtn:#ff0000;--redbtnh:#ff0000;--bg:#eef2f6;--panel:#fff;--panel2:#f6f8fb;--line:#dde4ec;--text:#14202e;--muted:#5d6b7c;--blue:#0f766e;--blueh:#0b5f58;--green:#0f8a5f;--red:#c2394f;--gold:#b7791f;--inp:#fff;--shadow:0 1px 2px rgba(20,32,46,.05),0 4px 14px rgba(20,32,46,.04);--hd:#eaf0f5;--buy:#e1f4ec;--buyt:#0b6b49;--sell:#fbe6ea;--sellt:#a62c42;--prev:#f3f7fa;--on:#fff;--r:14px;--rb:10px}
+@media(prefers-color-scheme:dark){:root{--bg:#0c141d;--panel:#142030;--panel2:#182739;--line:#26384d;--text:#e8eef5;--muted:#93a4b8;--blue:#2fb3a6;--blueh:#42c7ba;--green:#3ddc9c;--red:#ff7b8f;--gold:#f0b94d;--inp:#0e1a28;--shadow:none;--hd:#192a3c;--buy:#12382d;--buyt:#6fe3b6;--sell:#432030;--sellt:#ff9aab;--prev:#0f1c2b}}
+html[data-theme=binance]{--bg:#0b0e11;--panel:#181a20;--panel2:#1e2329;--line:#2b3139;--text:#eaecef;--muted:#848e9c;--blue:#fcd535;--blueh:#f0b90b;--green:#0ecb81;--red:#f6465d;--gold:#fcd535;--inp:#2b3139;--hd:#1e2329;--buy:rgba(14,203,129,.14);--buyt:#0ecb81;--sell:rgba(246,70,93,.14);--sellt:#f6465d;--prev:#1e2329;--on:#181a20;--r:8px;--rb:6px;--shadow:none}
+html[data-theme=binance] body{background:#0b0e11}
+html[data-theme=binance] .header{background:transparent;border:0;padding:4px 2px;margin-bottom:10px}
+html[data-theme=binance] .logo{background:var(--blue);color:#181a20;border-radius:8px;box-shadow:none}
+html[data-theme=binance] .status{background:transparent;padding:0;font-size:11.5px}
+html[data-theme=binance] .nav{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0;gap:0;box-shadow:none;backdrop-filter:none}
+html[data-theme=binance] .nav button{border-radius:0;background:transparent;color:var(--muted);padding:12px 14px;border-bottom:2px solid transparent}
+html[data-theme=binance] .nav button:hover{background:transparent;color:var(--text)}
+html[data-theme=binance] .nav button.active{background:transparent;color:var(--blue);border-bottom-color:var(--blue);box-shadow:none}
+html[data-theme=binance] .card,html[data-theme=binance] .panel{border:0;background:var(--panel)}
+html[data-theme=binance] .card,html[data-theme=binance] .cards .card:first-child{border-top:0;background:var(--panel)}
+html[data-theme=binance] .card:hover{border-color:transparent}
+html[data-theme=binance] .cards .card:first-child .kvalue{color:var(--text)}
+html[data-theme=binance] .cards .card:first-child .sub{color:var(--blue);font-weight:600}
+html[data-theme=binance] .kvalue{font-weight:600;letter-spacing:0}
+html[data-theme=binance] .section-title::before{background:var(--blue);width:3px}
+html[data-theme=binance] button{font-weight:600;border-radius:6px}
+html[data-theme=binance] button.secondary{background:#2b3139;color:var(--text);border-color:transparent}
+html[data-theme=binance] button.secondary:hover{background:#363c45;border-color:transparent}
+html[data-theme=binance] button.danger{background:transparent;color:var(--red);border-color:var(--red)}
+html[data-theme=binance] #dashboard .actions button{flex:1;color:#fff;border:0}
+html[data-theme=binance] #dashboard .actions button:nth-child(1){background:var(--green)}
+html[data-theme=binance] #dashboard .actions button:nth-child(1):hover{background:#0bb374}
+html[data-theme=binance] #dashboard .actions button:nth-child(2){background:var(--redbtn);color:#fff}
+html[data-theme=binance] #dashboard .actions button:nth-child(2):hover{background:#e03a50}
+html[data-theme=binance] input,html[data-theme=binance] select{border:1px solid transparent;border-radius:6px}
+html[data-theme=binance] input:focus,html[data-theme=binance] select:focus{border-color:var(--blue);box-shadow:none}
+html[data-theme=binance] .tablewrap{border:0}
+html[data-theme=binance] th{background:transparent;color:var(--muted);font-weight:500;border-bottom:1px solid var(--line)}
+html[data-theme=binance] td{border-bottom:1px solid #20242b}
+html[data-theme=binance] tbody tr:nth-child(even) td{background:transparent}
+html[data-theme=binance] tbody tr:hover td{background:var(--panel2)}
+html[data-theme=binance] .badge{border-radius:4px}
+html[data-theme=binance] .preview{border-left-color:var(--blue);border-radius:6px}
+html[data-theme=binance] .toast{background:#2b3139;color:var(--text)}
+html[data-theme=binance] .thememenu{background:#1e2329;border-color:var(--line)}
+@media(max-width:760px){html[data-theme=binance] .nav{background:#181a20;border-top:1px solid var(--line);border-bottom:0;border-radius:0}html[data-theme=binance] .nav button{border-bottom:0;padding:8px 4px}html[data-theme=binance] .nav button.active{border-bottom:0}}
+html[data-theme=blue]{--bg:#f1f4fb;--panel:#fff;--panel2:#f5f7fd;--line:#d9e0f0;--text:#101a33;--muted:#5a6785;--blue:#2447d6;--blueh:#1b38b0;--green:#0f8a5f;--red:#c2294a;--inp:#fff;--hd:#e8edfa;--buy:#dff3ea;--buyt:#0b6b49;--sell:#fbe3e9;--sellt:#a3203f;--prev:#f2f5fd;--on:#fff;--r:18px;--rb:12px;--shadow:0 2px 4px rgba(16,26,51,.05),0 10px 28px rgba(36,71,214,.08)}
+html[data-theme=gold]{--bg:#14120e;--panel:#1d1a14;--panel2:#26221a;--line:#3a3426;--text:#f3ecdc;--muted:#a89f89;--blue:#d9a441;--blueh:#e8b955;--green:#6fd6a3;--red:#ff8a8a;--inp:#14120e;--hd:#26221a;--buy:#1c3a2c;--buyt:#8de8bb;--sell:#43252a;--sellt:#ffa3a3;--prev:#17140f;--on:#1a1407;--r:12px;--rb:8px;--shadow:none}
+html[data-theme=neon]{--bg:#020806;--panel:#04100b;--panel2:#07180f;--line:#174b2a;--text:#eef8f0;--muted:#a8b8ad;--blue:#00ff48;--blueh:#47ff78;--green:#00ff48;--red:#ff7a8c;--gold:#f0b94d;--inp:#000;--hd:#04200b;--buy:#04200b;--buyt:#00ff48;--sell:#3a1620;--sellt:#ff8fa0;--prev:#030907;--on:#021407;--r:20px;--rb:15px;--shadow:0 0 15px #00ff4812}
+html[data-theme=neon] body{background:radial-gradient(ellipse at 50% 20%,#06200d 0%,#020806 55%,#000 100%) fixed}
+html[data-theme=neon] button.secondary.active,html[data-theme=neon] .nav button.active{box-shadow:0 0 10px #00ff4833}
+html[data-theme=purple]{--bg:#120d1f;--panel:#1b1430;--panel2:#241a3f;--line:#3a2c61;--text:#f1ecff;--muted:#a99fc7;--blue:#a78bfa;--blueh:#c0a8ff;--green:#6fe3b6;--red:#ff8aa0;--inp:#0f0a1a;--hd:#241a3f;--buy:#1c3a33;--buyt:#86efc4;--sell:#43203a;--sellt:#ff9ec0;--prev:#160f27;--on:#1a1033;--r:16px;--rb:12px;--shadow:none}
+html[data-theme=pink]{--bg:#fdf1f6;--panel:#ffffff;--panel2:#fff6fa;--line:#f2d3e0;--text:#2a1220;--muted:#7a5d6c;--blue:#e2136e;--blueh:#bf0f5d;--green:#0f8a5f;--red:#c2294a;--inp:#ffffff;--hd:#fbe4ee;--buy:#dff3ea;--buyt:#0b6b49;--sell:#fde0ea;--sellt:#a3203f;--prev:#fff5f9;--on:#ffffff;--r:16px;--rb:12px;--shadow:0 2px 10px rgba(226,19,110,.08)}
+html[data-theme=orange]{--bg:#fff5ec;--panel:#ffffff;--panel2:#fff8f1;--line:#f5dcc4;--text:#2b1a0d;--muted:#80644e;--blue:#d65a05;--blueh:#b84a02;--green:#0f8a5f;--red:#c2294a;--inp:#ffffff;--hd:#fde8d3;--buy:#dff3ea;--buyt:#0b6b49;--sell:#fde0ea;--sellt:#a3203f;--prev:#fff7ef;--on:#ffffff;--r:16px;--rb:12px;--shadow:0 2px 10px rgba(214,90,5,.08)}
+html[data-theme=mono]{--bg:#f5f5f5;--panel:#ffffff;--panel2:#fafafa;--line:#dcdcdc;--text:#111111;--muted:#666666;--blue:#111111;--blueh:#333333;--green:#1a7f4b;--red:#c0392b;--inp:#ffffff;--hd:#eeeeee;--buy:#e6f4ec;--buyt:#14653c;--sell:#fae6e3;--sellt:#a3281d;--prev:#fafafa;--on:#ffffff;--r:10px;--rb:8px;--shadow:0 1px 2px rgba(0,0,0,.06)}
+html[data-theme=bank]{--bg:#eef1f5;--panel:#ffffff;--panel2:#f5f7fa;--line:#d3dae3;--text:#1b2a3d;--muted:#5f6f83;--blue:#1e3a5f;--blueh:#162c49;--green:#1b7f57;--red:#b3382f;--inp:#ffffff;--hd:#e4e9f0;--buy:#e0f1e8;--buyt:#176a47;--sell:#f6e1de;--sellt:#98302a;--prev:#f4f6f9;--on:#ffffff;--r:4px;--rb:4px;--shadow:0 1px 0 rgba(27,42,61,.06)}
+html[data-theme=green]{--bg:#f4f1e8;--panel:#fffdf7;--panel2:#f7f3e8;--line:#ddd6c2;--text:#1c2a22;--muted:#66705f;--blue:#1f5f3f;--blueh:#164a31;--green:#1f7a4d;--red:#b3342f;--inp:#fff;--hd:#ece7d6;--buy:#dcefe1;--buyt:#17633d;--sell:#f6e0dc;--sellt:#9c2b27;--prev:#f8f5ea;--on:#fff;--r:6px;--rb:6px;--shadow:0 1px 0 rgba(28,42,34,.05)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 "Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+button,input,select{font:inherit}
+button{cursor:pointer;border:1px solid transparent;border-radius:var(--rb);padding:11px 16px;font-weight:600;color:var(--on);background:var(--blue);transition:background .15s,border-color .15s}
+button:hover{background:var(--blueh)}
+button.secondary{background:var(--panel);color:var(--text);border-color:var(--line)}button.secondary:hover{background:var(--panel2);border-color:var(--muted)}
+button.danger{background:transparent;color:var(--red);border-color:var(--line)}button.danger:hover{background:var(--sell);border-color:var(--red)}
+button.small{padding:6px 10px;font-size:12px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1120px;margin:auto;padding:20px 18px 40px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:42px;height:42px;border-radius:11px;background:var(--blue);display:grid;place-items:center;color:var(--on);font-weight:800;font-size:21px}
+.brand h1{font-size:20px;line-height:1.2;margin:0;font-weight:700;letter-spacing:-.01em}.brand p{color:var(--muted);font-size:12.5px;margin:2px 0 0}
+.status{font-size:12px;color:var(--buyt);background:var(--buy);padding:5px 11px;border-radius:99px;font-weight:600}
+.nav{display:flex;gap:4px;padding:4px;margin-bottom:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:auto;position:sticky;top:8px;z-index:4;box-shadow:var(--shadow)}
+.nav button{flex:1;white-space:nowrap;background:transparent;color:var(--muted);padding:9px 14px;border-radius:9px;font-weight:600}
+.nav button:hover{background:var(--panel2);color:var(--text)}.nav button.active{background:var(--blue);color:var(--on)}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0;box-shadow:var(--shadow)}
+.card{border-top:3px solid var(--line)}.cards .card:first-child{border-top-color:var(--blue)}
+.klabel{color:var(--muted);font-size:12.5px;font-weight:500}
+.kvalue{font-size:clamp(19px,2.4vw,26px);font-weight:700;margin:6px 0 2px;overflow-wrap:anywhere;letter-spacing:-.01em}
+.sub{font-size:12px;color:var(--muted)}.green{color:var(--green)}.red{color:var(--red)}
+.section-title{font-size:16px;font-weight:700;margin:0 0 14px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}
+label{font-size:12.5px;color:var(--muted);font-weight:500}
+input,select{width:100%;min-width:0;background:var(--inp);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px 12px;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.hint{font-size:12.5px;color:var(--muted);line-height:1.65;margin-top:12px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);font-size:13px;white-space:nowrap}
+th{color:var(--muted);background:var(--hd);font-weight:600;font-size:12px}
+td{color:var(--text)}tbody tr:hover td{background:var(--panel2)}tr:last-child td{border-bottom:0}
+.empty{text-align:center;padding:30px;color:var(--muted)}.hidden{display:none!important}
+.reportbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:14px}.reportbar .field{min-width:145px;flex:1}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:11px 18px;border-radius:10px;display:none;z-index:9;max-width:90vw;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.foot{text-align:center;color:var(--muted);font-size:12px;padding:22px 0 8px}
+.badge{display:inline-block;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:600}
+.badge.buy{background:var(--buy);color:var(--buyt)}.badge.sell{background:var(--sell);color:var(--sellt)}
+.preview{padding:14px 16px;background:var(--prev);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px;color:var(--muted);font-size:13px;line-height:1.8}
+.preview strong{color:var(--text)}
+.statrow{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:10px 0}.statrow:last-child{border:0}
+@media(max-width:760px){
+.wrap{padding:14px 12px 40px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cards .card:first-child{grid-column:1/-1}
+.card,.panel{padding:14px}.layout{grid-template-columns:1fr}.brand h1{font-size:18px}.brand p{display:none}.fieldgrid{gap:10px}.kvalue{font-size:20px}
+.nav{position:fixed;top:auto;bottom:0;left:0;right:0;margin:0;border-radius:16px 16px 0 0;border-width:1px 0 0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(0,0,0,.12)}
+.nav button{padding:10px 6px;font-size:12.5px}}
+@media(max-width:380px){.fieldgrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.header{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;box-shadow:var(--shadow)}
+.logo{box-shadow:0 4px 12px color-mix(in srgb,var(--blue) 35%,transparent)}
+.nav button{display:flex;align-items:center;justify-content:center;gap:8px}.nav svg{flex:none}
+button:active{transform:translateY(1px)}
+.section-title{display:flex;align-items:center;gap:9px}.section-title::before{content:"";width:4px;height:16px;border-radius:2px;background:var(--blue)}
+.page{animation:pgin .28s ease}@keyframes pgin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cards .card:first-child{background:linear-gradient(140deg,color-mix(in srgb,var(--blue) 16%,var(--panel)),var(--panel) 75%)}
+.cards .card:first-child .kvalue{font-size:clamp(26px,3.6vw,36px)}
+.card{transition:border-color .2s}.card:hover{border-color:color-mix(in srgb,var(--blue) 45%,var(--line))}
+th{position:sticky;top:0;text-transform:none;letter-spacing:.01em}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--panel2) 55%,transparent)}
+.badge{letter-spacing:.01em}
+@media(min-width:761px){.cards{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+@media(max-width:760px){.header{padding:10px 12px}.nav button{flex-direction:column;gap:3px;padding:7px 4px;font-size:11.5px;line-height:1.2;white-space:normal;text-align:center;min-width:56px}.nav button svg{width:20px;height:20px}}
+@media(prefers-reduced-motion:reduce){.page{animation:none}}
+
+.themewrap{position:relative}.thememenu{max-width:calc(100vw - 16px);max-height:70vh;overflow-y:auto;position:absolute;right:0;top:calc(100% + 8px);z-index:30;min-width:210px;padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 12px 32px rgba(0,0,0,.28)}
+.thememenu button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-radius:8px;padding:9px 10px;font-weight:600}
+.thememenu button:hover,.thememenu button.sel{background:var(--panel2)}.thememenu button.sel::after{content:"✓";margin-left:auto;color:var(--blue)}
+.dot{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line)}
+
+/* ===== premium layout ===== */
+.hero{position:relative;overflow:hidden;padding:24px 22px;border-radius:calc(var(--r) + 6px);background:linear-gradient(145deg,color-mix(in srgb,var(--blue) 16%,var(--panel)),var(--panel) 68%);border:1px solid color-mix(in srgb,var(--blue) 30%,var(--line))}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--blue) 28%,transparent),transparent 70%);pointer-events:none}
+.hero .big{font-size:clamp(36px,10vw,52px);font-weight:700;line-height:1.1;margin-top:6px;letter-spacing:-.02em;overflow-wrap:anywhere}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1}
+.chip{background:color-mix(in srgb,var(--text) 8%,transparent);border-radius:99px;padding:5px 10px;font-size:12px;color:var(--muted)}.chip strong{color:var(--text);margin-left:4px}
+.trade{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.trade button{padding:17px 10px;font-size:15.5px;border-radius:14px;color:#fff;border:0;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.trade .b{background:var(--green)}.trade .b:hover{background:var(--green);filter:brightness(1.08)}
+.trade .s{background:var(--redbtn)}.trade .s:hover{background:var(--redbtnh);filter:brightness(1.08)}
+html[data-theme=neon] .trade .b{color:#021407}
+.stats3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:13px 12px;min-width:0}
+.stat .sv{font-size:clamp(12.5px,3.6vw,21px);font-weight:700;margin:6px 0 2px;white-space:nowrap;letter-spacing:-.02em}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+button.tile{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 4px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--r);font-size:12px}
+button.tile svg{color:var(--blue)}button.tile:hover{background:var(--panel2);border-color:color-mix(in srgb,var(--blue) 50%,var(--line))}
+.vol{margin-bottom:18px;padding-top:6px;padding-bottom:6px}
+.sechead{display:flex;justify-content:space-between;align-items:center;margin:4px 0 12px}.sechead .section-title{margin:0}
+.txcards{display:none}.txc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;margin-bottom:9px;display:flex;flex-direction:column;gap:7px}
+.txr{display:flex;justify-content:space-between;align-items:center;gap:8px}.txm{display:flex;justify-content:space-between;align-items:baseline;font-size:17px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:14px}
+.seg button{background:transparent;color:var(--muted);border:0;padding:13px;border-radius:10px;font-size:15px}
+.seg button:hover:not(.on){background:var(--panel2);color:var(--text)}
+.seg button.on.buy,.seg button.on.buy:hover{background:var(--green);color:#fff}.seg button.on.sell,.seg button.on.sell:hover{background:var(--redbtn);color:#fff}
+html[data-theme=neon] .seg button.on.buy{color:#021407}
+.entrygrid{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;align-items:start}
+.summary{position:sticky;top:12px}
+.inwrap{position:relative}.inwrap input{padding-right:62px;font-size:17px;font-weight:600;padding-top:13px;padding-bottom:13px}
+.inwrap span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;font-weight:700}
+details.adv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+details.adv summary{cursor:pointer;color:var(--blue);font-weight:600;font-size:13.5px;list-style:none;padding:4px 0 12px}details.adv summary::-webkit-details-marker{display:none}
+details.adv summary::before{content:"＋ "}details.adv[open] summary::before{content:"－ "}
+button.go{flex:1;padding:15px;font-size:15.5px;border-radius:12px}
+@media(min-width:761px){.txcards{display:none!important}}
+@media(max-width:760px){.txtable{display:none}.txcards{display:block}.entrygrid{grid-template-columns:1fr}.summary{position:static}.tiles{gap:8px}.hero{padding:20px 18px}}
+html[data-theme=binance] .hero{background:linear-gradient(145deg,#2a2410 0%,#181a20 62%);border-color:#4a3f14}
+html[data-theme=binance] .stat,html[data-theme=binance] button.tile,html[data-theme=binance] .txc,html[data-theme=binance] .seg{border:0}
+html[data-theme=binance] .stat,html[data-theme=binance] .txc,html[data-theme=binance] button.tile{background:var(--panel)}
+html[data-theme=binance] button.tile:hover{background:var(--panel2)}
+@media(max-width:760px){html[data-theme=binance] .nav{background:rgba(24,26,32,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}}
+
+/* ===== premium dashboard v2 ===== */
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(520px 320px at 85% -4%,color-mix(in srgb,var(--blue) 14%,transparent),transparent 70%),radial-gradient(420px 300px at -5% 40%,color-mix(in srgb,var(--green) 7%,transparent),transparent 70%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.hero{padding:22px 20px 18px;border-radius:24px;box-shadow:0 18px 40px -18px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07)}
+.herotop{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:8px;box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 22%,transparent);animation:pl 2s infinite}
+@keyframes pl{50%{box-shadow:0 0 0 7px transparent}}
+.tether{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#26a17b;color:#fff;font-weight:800;font-size:17px;box-shadow:0 4px 14px rgba(38,161,123,.45)}
+.hero .big{position:relative;z-index:1;background:linear-gradient(180deg,var(--text),color-mix(in srgb,var(--text) 70%,var(--blue)));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.herosub{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:13px;margin-top:2px;position:relative;z-index:1}
+.herosub span:first-child{background:color-mix(in srgb,var(--text) 10%,transparent);padding:2px 10px;border-radius:99px;font-weight:700;color:var(--text);font-size:12px}.herosub b{color:var(--text)}
+.sparkwrap{margin-top:14px;position:relative;z-index:1}.sparkcap{font-size:11px;color:var(--muted);margin-bottom:2px}#spark{width:100%;height:64px;display:block}
+.chip.pill{font-weight:700}.chip.pill.up{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}.chip.pill.dn{background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--red)}
+.trade{gap:12px;margin:16px 0}
+.trade button{display:flex;align-items:center;justify-content:center;gap:9px;padding:16px 8px;border-radius:16px;font-size:15px;box-shadow:0 10px 24px -10px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.25)}
+.trade .b{background:linear-gradient(135deg,var(--green),color-mix(in srgb,var(--green) 62%,#000))}.trade .s{background:linear-gradient(135deg,var(--redbtnh),var(--redbtn))}
+.trade .b:hover{background:linear-gradient(135deg,var(--green),color-mix(in srgb,var(--green) 62%,#000))}.trade .s:hover{background:linear-gradient(135deg,var(--redbtnh),var(--redbtn))}
+.trade i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.22);font-size:15px}
+.stat{position:relative;padding:14px 12px 12px;border-radius:18px;overflow:hidden}
+.si{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:13px;margin-bottom:8px;font-weight:800}
+.si.r{background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--red)}.si.g{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}.si.y{background:color-mix(in srgb,var(--blue) 20%,transparent);color:var(--blue)}
+.stat .klabel{font-size:11.5px}
+button.tile{border-radius:18px;padding:14px 2px 12px;gap:9px}
+button.tile b{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--blue) 24%,transparent),color-mix(in srgb,var(--blue) 6%,transparent));color:var(--blue);border:1px solid color-mix(in srgb,var(--blue) 25%,transparent)}
+button.tile svg{color:inherit}
+.vol{border-radius:18px;padding:14px 16px}.volrow{display:flex;align-items:center;justify-content:space-around;text-align:center}.volrow strong{font-size:16px}.vsep{width:1px;height:34px;background:var(--line)}
+.rows{padding:4px 14px;border-radius:18px}.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.ico{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+.ico.buy{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}.ico.sell{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}
+.rm{display:flex;flex-direction:column;min-width:0;flex:1}.rm strong{font-size:14.5px}.rr{display:flex;flex-direction:column;align-items:flex-end}.rr strong{font-size:14.5px}.rr span{font-size:12.5px}
+@media(prefers-reduced-motion:reduce){.live{animation:none}}
+html[data-theme=binance] .hero{background:linear-gradient(150deg,#2f2810 0%,#1b1c20 55%,#14161a 100%);border:1px solid #4a3f14}
+html[data-theme=binance] .stat,html[data-theme=binance] button.tile,html[data-theme=binance] .vol,html[data-theme=binance] .rows{background:linear-gradient(180deg,#1c1f26,#171a20);border:1px solid #23272f}
+html[data-theme=binance] .trade button{border:0}
+
+.pricebox{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:14px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--text) 6%,transparent);border:1px solid color-mix(in srgb,var(--blue) 22%,var(--line));position:relative;z-index:1}
+.pricebox .pl{font-size:11.5px;color:var(--muted);margin-bottom:3px}
+.pricebox .pv{display:flex;align-items:baseline;gap:5px}.pricebox .pv b{font-size:clamp(22px,7vw,30px);color:var(--blue);font-weight:700;letter-spacing:-.01em}.pricebox .pv small{color:var(--muted);font-size:12px;font-weight:600}
+.pricebox .pr{text-align:right}.pricebox .pm{font-size:15px;font-weight:700}
+.pricebox .raw{font-size:11.5px;color:var(--muted);margin-top:5px}.pricebox .raw b{color:var(--text)}.avgstrip{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding:9px 14px;border-radius:14px;background:var(--panel);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.avgstrip b{display:block;color:var(--text);font-size:14px;font-weight:700;margin-top:1px}.avgstrip .al b{color:var(--blue)}.avgstrip small{color:var(--muted);font-size:11px;font-weight:600}.avgstrip .am{text-align:right}
+.tiles{grid-template-columns:repeat(6,minmax(0,1fr))!important}.tiles .tile:nth-child(-n+3){grid-column:span 2}.tiles .tile:nth-child(n+4){grid-column:span 3}.tiles .tile:nth-child(n+4){flex-direction:row;justify-content:center;padding:12px 8px}.tiles .tile:nth-child(n+4) b{width:36px;height:36px}
+.header{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin-bottom:12px!important;justify-content:flex-end}.header>div{width:100%;justify-content:space-between}.header #homeBtn.hidden+.themewrap{margin-left:auto}
+
+/* ===== card design ===== */
+html .hero.vcard{aspect-ratio:1.586/1;min-height:238px;display:flex;flex-direction:column;padding:18px 20px 16px;border-radius:22px;color:#fff;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,color-mix(in srgb,var(--blue) 58%,#000) 0%,color-mix(in srgb,var(--blue) 22%,#060606) 52%,#050505 100%);box-shadow:0 22px 44px -16px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.25)}
+html .hero.vcard::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 105% -10%,rgba(255,255,255,.22),transparent 45%),repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 9px);pointer-events:none;z-index:0}
+html .hero.vcard::after{content:"";position:absolute;right:-70px;bottom:-90px;width:230px;height:230px;border-radius:50%;border:34px solid rgba(255,255,255,.05);background:none;pointer-events:none}
+.vcard>*{position:relative;z-index:1}.vcard .sparkwrap{position:absolute;left:0;right:0;bottom:0;margin:0;opacity:.28;z-index:0;pointer-events:none}.vcard #spark{height:84px}
+.vtop{display:flex;justify-content:space-between;align-items:center}
+.vbrand{font-size:12px;font-weight:800;letter-spacing:.2em;opacity:.92;display:flex;align-items:center}
+.vcard .tether{width:30px;height:30px;font-size:15px}
+.vmid{display:flex;align-items:center;gap:12px;margin-top:12px;margin-bottom:10px}
+.vchip{width:46px;height:34px;border-radius:7px;background:linear-gradient(135deg,#f6e3a1,#c9a24a 55%,#e8cf86);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:2px;padding:5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.3)}
+.vchip i{border:1px solid rgba(80,55,10,.45);border-radius:2px}.vchip i:nth-child(3){grid-column:1/-1}
+.vnfc{opacity:.85;transform:rotate(90deg)}
+.vlabel{margin-top:auto;font-size:11px;opacity:.75;letter-spacing:.04em}
+.vbal{display:flex;align-items:baseline;gap:8px;margin:2px 0 10px}
+html .vcard .big{background:none;-webkit-text-fill-color:#fff;color:#fff;font-size:clamp(34px,10.5vw,46px);margin:0;letter-spacing:.05em;font-weight:600;text-shadow:0 1px 0 rgba(255,255,255,.4),0 -1px 0 rgba(0,0,0,.55),0 4px 14px rgba(0,0,0,.4)}
+.vunit{font-size:13px;font-weight:700;opacity:.85;letter-spacing:.12em}
+.vfoot{display:flex;align-items:flex-end;gap:18px}.vfoot small{display:block;font-size:9.5px;opacity:.7;letter-spacing:.08em}.vfoot b{font-size:15px;letter-spacing:.06em}
+.vcard .chip.pill{margin-left:auto;background:rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(4px);font-size:12px}.vcard .chip.pill.up{color:#7dffb8}.vcard .chip.pill.dn{color:#ff9aa8}
+.vol{margin:10px 0 0!important;padding:10px 14px!important;border-radius:14px!important}.vol .volrow strong{font-size:15px}.vol .sub{font-size:11.5px}.vol{margin-top:10px;margin-bottom:0!important;padding:10px 16px!important}.avgstrip{margin-top:10px}.tiles .tile{grid-column:span 2!important;flex-direction:column!important;padding:14px 2px 12px!important}.tiles .tile b{width:42px!important;height:42px!important}
+.tiles .tile.tbuy b{background:linear-gradient(145deg,color-mix(in srgb,var(--green) 40%,transparent),color-mix(in srgb,var(--green) 10%,transparent));color:var(--green);border-color:color-mix(in srgb,var(--green) 45%,transparent)}
+.tiles .tile.tsell b{background:linear-gradient(145deg,color-mix(in srgb,var(--red) 40%,transparent),color-mix(in srgb,var(--red) 10%,transparent));color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.tiles .tile.tbuy span{color:var(--green)}.tiles .tile.tsell span{color:var(--red)}
+.avgstrip{margin-bottom:12px}
+.tiles .tile:nth-child(n+4){grid-column:span 3!important;flex-direction:row!important;justify-content:center;padding:12px 8px!important}.tiles .tile:nth-child(n+4) b{width:36px!important;height:36px!important}
+.today{margin-top:12px;margin-bottom:12px;padding:14px 16px 12px;border-radius:18px}.today .sechead{margin:0 0 10px;gap:8px;flex-wrap:wrap}.today .section-title{font-size:14.5px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:10px;text-align:left}.tgrid strong{display:block;font-size:14.5px;margin:3px 0 1px;white-space:nowrap}.tgrid .sub{font-size:11.5px}
+.todpick{display:flex;gap:2px;align-items:center;opacity:.5}.todpick:hover,.todpick:focus-within{opacity:1}.todpick button{background:none;border:0;box-shadow:none;color:var(--muted);font-size:11px;padding:0 3px;min-height:0;line-height:1}.todpick #todPrev,.todpick #todNext{display:none}.todcal{position:relative;display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;margin:0}.todcal input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:0}
+.tprofit{border-left:1px solid var(--line);padding-left:12px}.tprofit strong{font-size:16px}
+html[data-theme=binance] .today{background:linear-gradient(180deg,#1c1f26,#171a20);border:1px solid #23272f}
+
+
+html,body{overflow-x:hidden}
+/* ===== Premium animated balance card ===== */
+html .hero.vcard{--gold1:color-mix(in srgb,var(--blue) 55%,#fff);--gold2:color-mix(in srgb,var(--blue) 85%,#000);position:relative;isolation:isolate;overflow:hidden;max-width:100%;aspect-ratio:auto;height:auto;min-height:244px;border:1.5px solid transparent;border-radius:24px;padding:18px 22px 18px;transition:transform .25s ease,box-shadow .25s ease;
+background:
+ radial-gradient(120% 80% at 100% -10%,color-mix(in srgb,var(--blue) 38%,transparent),transparent 55%),
+ radial-gradient(90% 70% at -10% 110%,color-mix(in srgb,var(--blue) 20%,transparent),transparent 60%),
+ linear-gradient(140deg,color-mix(in srgb,var(--blue) 34%,#0b0b0d) 0%,#0a0b0e 46%,color-mix(in srgb,var(--blue) 18%,#050506) 100%) padding-box,
+ linear-gradient(135deg,rgba(255,255,255,.65),var(--gold1) 22%,rgba(255,255,255,.06) 48%,var(--gold2) 72%,var(--gold1)) border-box;
+box-shadow:0 28px 50px -20px rgba(0,0,0,.8),0 10px 24px -12px color-mix(in srgb,var(--blue) 45%,transparent),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.6)}
+html .hero.vcard::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:0;pointer-events:none;
+background:
+ radial-gradient(circle at 100% 0%,rgba(255,255,255,.2),transparent 42%),
+ repeating-radial-gradient(circle at 92% 118%,rgba(255,255,255,.05) 0 1px,transparent 1px 8px),
+ repeating-linear-gradient(118deg,rgba(255,255,255,.028) 0 1px,transparent 1px 7px)}
+html .hero.vcard::after{content:"";position:absolute;top:-10%;bottom:-10%;left:-50%;width:40%;right:auto;border:0;border-radius:0;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.05) 30%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.05) 70%,transparent 100%);transform:skewX(-18deg);pointer-events:none;z-index:2;animation:vsheen 7s ease-in-out infinite}
+@keyframes vsheen{0%,55%{transform:translateX(0) skewX(-18deg)}100%{transform:translateX(420%) skewX(-18deg)}}
+.vcard .vbrand{font-size:11.5px;letter-spacing:.24em;gap:0}
+.vcard .tether{width:34px;height:34px;font-size:17px;background:radial-gradient(circle at 30% 25%,#5fe0b8,#26a17b 55%,#17785a);box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 0 5px rgba(38,161,123,.18),0 6px 18px rgba(38,161,123,.55)}
+.vcard .vchip{width:50px;height:38px;border-radius:8px;background:linear-gradient(135deg,#fff1bd 0%,#d6ab4f 45%,#f1d98f 70%,#b98a32 100%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.7),0 2px 8px rgba(0,0,0,.45)}
+.vcard .vnfc{opacity:.7}
+.vcard .vlabel{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+html .vcard .big{background:linear-gradient(180deg,#fff 0%,#fff 38%,color-mix(in srgb,var(--gold1) 80%,#fff) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.03em;text-shadow:none;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45)) drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+.vcard .vunit{letter-spacing:.2em;font-size:12px;color:var(--gold1);opacity:.95}
+.vcard .vfoot{position:relative;padding-top:11px;gap:22px}
+.vcard .vfoot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent)}
+.vcard .vfoot small{font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.vcard .vfoot b{font-size:15px;font-variant-numeric:tabular-nums}
+.vcard .chip.pill{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-weight:800;letter-spacing:.03em}
+.vcard .sparkwrap{opacity:.34}
+html .hero.vcard.tilt{transition:transform .08s linear}
+@media(prefers-reduced-motion:reduce){html .hero.vcard::after{animation:none;display:none}html .hero.vcard{transition:none}}
+
+/* ===== Real card size (85.6 x 54 mm ratio) ===== */
+html .hero.vcard{aspect-ratio:1.586/1;height:auto;min-height:0;padding:14px 18px 12px;border-radius:18px}
+.vcard .vmid{margin-top:6px;margin-bottom:0}
+.vcard .vchip{width:42px;height:32px}
+.vcard .tether{width:28px;height:28px;font-size:14px}
+.vcard .vbrand{font-size:10.5px}
+.vcard .vlabel{font-size:9px}
+html .vcard .big{font-size:clamp(28px,8.5vw,38px)}
+.vcard .vbal{margin:0 0 6px}
+.vcard .vunit{font-size:11px}
+.vcard .vfoot{padding-top:7px;gap:16px}
+.vcard .vfoot b{font-size:13.5px}
+.vcard .vfoot small{font-size:8.5px}
+.vcard .chip.pill{font-size:11px;padding:4px 10px}
+.vcard .vnfc{width:22px;height:22px}
+
+/* ===== Profit chart ===== */
+.pchart{margin:12px 0;padding:14px 16px 12px;border-radius:18px}.pchart .sechead{margin:0 0 10px;gap:8px;flex-wrap:wrap}.pchart .section-title{font-size:14.5px}
+.pseg{display:flex;gap:2px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:2px}
+.pseg button{background:none;border:0;box-shadow:none;color:var(--muted);font-size:11.5px;padding:4px 9px;border-radius:7px;min-height:0;line-height:1.2;cursor:pointer}
+.pseg button.on{background:var(--blue);color:var(--on)}
+.psum{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:8px;margin-bottom:8px}.psum .sub{display:block;font-size:11px}.psum strong{font-size:14px;white-space:nowrap}
+.pwrap{position:relative}#pcSvg{width:100%;height:100px;display:block;overflow:visible}
+.pnone{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;color:var(--muted)}
+#pcSvg .bar{transition:opacity .15s}#pcSvg .bar:hover{opacity:.75}
+#homeBtn{font-size:16px!important;font-weight:700;display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:10px 18px!important;line-height:1.2}input.bad,select.bad{outline:2px solid #ff0000!important;outline-offset:1px;border-color:#ff0000!important}.toast{top:auto!important;bottom:24px!important;font-size:16px;line-height:1.5;text-align:center;min-width:240px;z-index:9999!important}.toast.err{background:#ff0000!important;color:#fff!important;border:2px solid #fff;font-weight:800;box-shadow:0 0 0 4px rgba(255,0,0,.35),0 12px 32px rgba(0,0,0,.65)}.toast.ok{background:#00ff48!important;color:#021407!important;font-weight:800;box-shadow:0 12px 32px rgba(0,0,0,.5)}.vcard .vlabel{font-size:11px!important;letter-spacing:0!important;text-transform:none!important;opacity:.9!important;font-weight:500}.vcard .vfoot small{font-size:10.5px!important;letter-spacing:0!important;text-transform:none!important;opacity:.85;font-weight:500}.vcard .curtgl{cursor:pointer;font:inherit;font-size:9.5px!important;font-weight:700;letter-spacing:.02em!important;padding:1px 6px!important;margin:0 0 0 2px;min-height:0;border-radius:999px;background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.35)!important;color:var(--gold1,#fff)!important;box-shadow:none;line-height:1.3}.vcard .vrate{font-size:10.5px;opacity:.9;margin:0 0 6px}</style></head>
+<body><main class="wrap">
+<header class="header"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="secondary small hidden" id="homeBtn" onclick="showPage('dashboard')">← Home Page</button><div class="themewrap"><button class="secondary small" id="themeBtn" aria-haspopup="true">🎨 Theme</button><div class="thememenu hidden" id="themeMenu"></div></div></div></header>
+
+<section id="dashboard" class="page">
+<div class="hero vcard">
+<div class="sparkwrap"><svg id="spark" viewBox="0 0 300 64" preserveAspectRatio="none"></svg></div>
+<div class="vtop"><span class="vbrand"><span class="live"></span>USDT BUSINESS</span><span class="tether">₮</span></div>
+<div class="vmid"><div class="vchip"><i></i><i></i><i></i></div><svg class="vnfc" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M12 6a8.5 8.5 0 0 1 0 12M15.5 3.5a12 12 0 0 1 0 17"/></svg></div>
+<div class="vlabel">মোট USDT ব্যালেন্স</div>
+<div class="vbal"><span class="big" id="balance">0</span><button type="button" class="vunit curtgl" id="curTgl" aria-label="USDT / BDT">USDT ⇄</button></div><div class="vrate hidden" id="vRate"></div>
+<div class="vfoot"><div><small>লেনদেন</small><b id="count">0</b></div><div><small>কেনা</small><b id="buyCount">0</b></div><div><small>বিক্রি</small><b id="sellCount">0</b></div><span class="chip pill" id="heroPill">▲ 0.00%</span></div>
+</div>
+<div class="panel today"><div class="sechead"><h2 class="section-title" id="todTitle">আজকের হিসাব</h2><span class="sub hidden" id="todDate"></span><div class="todpick"><button id="todPrev" type="button" aria-label="আগের দিন">‹</button><label class="todcal" title="তারিখ বাছুন"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><input type="date" id="todPick" aria-label="তারিখ বাছুন"></label><button id="todNext" type="button" aria-label="পরের দিন">›</button><button id="todNow" type="button">আজ</button></div></div>
+<div class="tgrid"><div><div class="sub">কিনেছি</div><strong id="todBuy">0</strong><div class="sub" id="todBuyTk">৳0.00</div></div><div><div class="sub">বিক্রি করেছি</div><strong id="todSell">0</strong><div class="sub" id="todSellTk">৳0.00</div></div><div class="tprofit"><div class="sub" id="todProfitLbl">আজকের লাভ</div><strong id="todProfit">৳0.00</strong><div class="sub" id="todNote">লেনদেন ০টি</div></div></div></div>
+<div class="panel vol"><div class="volrow"><div><div class="sub">মোট কেনা</div><strong id="totalBought">0 USDT</strong></div><div class="vsep"></div><div><div class="sub">মোট বিক্রি</div><strong id="totalSold">0 USDT</strong></div></div></div>
+<div class="avgstrip"><div class="al"><span>সব খরচ সহ গড় দাম</span><b><span id="avgCost">৳0.00</span> <small>/ USD</small></b></div><div class="am"><span>মোট মূল্য</span><b id="heroVal">৳0.00</b></div></div>
+<div class="stats3"><div class="stat"><span class="si r">↓</span><div class="klabel">কেনার খরচ</div><div class="sv" id="buyCost">৳0.00</div><div class="sub">ফি-সহ</div></div><div class="stat"><span class="si g">↑</span><div class="klabel">বিক্রির টাকা</div><div class="sv" id="sellRevenue">৳0.00</div><div class="sub">নেট</div></div><div class="stat"><span class="si y">★</span><div class="klabel">লাভ / ক্ষতি</div><div class="sv" id="realized">৳0.00</div><div class="sub">বাস্তবায়িত</div></div></div>
+<div class="tiles"><button class="tile tmain" onclick="showPage('entry')"><b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg></b><span>কেনা / বিক্রি</span></button><button class="tile" onclick="showPage('calc')"><b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg></b><span>ক্যালকুলেটর</span></button><button class="tile" onclick="showPage('transactions')"><b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></b><span>লেনদেন</span></button><button class="tile" onclick="showPage('reports')"><b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></b><span>রিপোর্ট</span></button><button class="tile" onclick="showPage('backup')"><b><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></b><span>ব্যাকআপ</span></button></div>
+
+<div class="panel pchart"><div class="sechead"><h2 class="section-title">লাভের চার্ট</h2><div class="pseg" role="tablist"><button type="button" data-r="7" class="on">৭ দিন</button><button type="button" data-r="30">৩০ দিন</button><button type="button" data-r="12">১২ মাস</button></div></div>
+<div class="psum"><div><span class="sub">সেরা দিন</span><strong id="pcBest">—</strong></div><div><span class="sub">সর্বনিম্ন দিন</span><strong id="pcWorst">—</strong></div><div><span class="sub">দৈনিক গড়</span><strong id="pcAvg">৳0.00</strong></div></div>
+<div class="pwrap"><svg id="pcSvg" viewBox="0 0 320 150" preserveAspectRatio="none" role="img" aria-label="লাভের চার্ট"></svg><div class="pnone hidden" id="pcNone">এই সময়ে কোনো লেনদেন নেই</div></div></div>
+<div class="sechead"><h2 class="section-title">সাম্প্রতিক লেনদেন</h2><button class="secondary small" onclick="showPage('transactions')">সব দেখুন</button></div>
+<div id="recentTable"></div>
+</section>
+<section id="entry" class="page hidden">
+<div class="seg" id="seg"><button type="button" class="buy on" data-k="buy">USDT কিনুন</button><button type="button" class="sell" data-k="sell">USDT বিক্রি</button></div>
+<div class="entrygrid">
+<div class="panel"><h2 class="section-title">অর্ডার বিবরণ</h2><select id="type" class="hidden"><option value="buy">USDT কেনা</option><option value="sell">USDT বিক্রি</option></select>
+<div class="fieldgrid"><div class="field full"><label for="amount">USDT পরিমাণ</label><div class="inwrap"><input id="amount" type="number" min="0.00000001" step="any" inputmode="decimal" placeholder="যেমন 100"><span>USDT</span></div></div>
+<div class="field full"><label for="rate">প্রতি USDT রেট</label><div class="inwrap"><input id="rate" type="number" min="0" step="any" inputmode="decimal" placeholder="যেমন 127.30"><span>BDT</span></div></div>
+<div class="field full"><label for="date">তারিখ</label><input id="date" type="date"></div></div>
+<details class="adv"><summary>অতিরিক্ত অপশন</summary><div class="fieldgrid">
+<div class="field"><label>এক্সচেঞ্জ ফি (অটো হিসাব)</label><input id="usdExpenseAmount" type="number" min="0" step="any" value="0" readonly></div>
+<div class="field" id="cashoutField"><label>ক্যাশ আউট মাধ্যম (শুধু বিক্রির সময়)</label><select id="cashoutMethod"><option value="Nagad">নগদ — হাজারে ৳১৫</option><option value="bKash">বিকাশ — হাজারে ৳১৮.৫০</option></select></div><input id="localCharge" type="hidden" value="15">
+<div class="field"><label>অতিরিক্ত ফি (BDT, ঐচ্ছিক)</label><input id="fee" type="number" min="0" step="any" value="0"></div>
+<div class="field"><label>রেফারেন্স / নোট (ঐচ্ছিক)</label><input id="note" type="text" maxlength="100" placeholder="যেমন Binance / P2P"></div></div></details></div>
+<div class="panel summary"><h2 class="section-title">অর্ডার সামারি</h2><div class="preview" id="calcPreview">পরিমাণ ও রেট দিলে এখানে হিসাব দেখা যাবে।</div>
+<div class="actions"><button id="saveBtn" class="go" onclick="saveTransaction()">লেনদেন সেভ করুন</button><button class="secondary" onclick="resetForm()">ফর্ম পরিষ্কার</button></div></div>
+</div></section>
+ <section id="transactions" class="page hidden"><div class="panel"><h2 class="section-title">সব লেনদেন</h2><div class="reportbar"><div class="field"><label>তারিখ অনুযায়ী ফিল্টার</label><input id="filterDate" type="date"></div><div class="field"><label>ধরন</label><select id="filterType"><option value="all">সব</option><option value="buy">কেনা</option><option value="sell">বিক্রি</option></select></div><button class="secondary" onclick="renderTransactions()">ফিল্টার</button><button class="secondary" onclick="clearFilter()">রিসেট</button></div><div id="allTable"></div></div></section>
+<section id="reports" class="page hidden"><div class="panel"><h2 class="section-title">তারিখভিত্তিক রিপোর্ট</h2><div class="reportbar"><div class="field"><label>শুরুর তারিখ</label><input type="date" id="fromDate"></div><div class="field"><label>শেষ তারিখ</label><input type="date" id="toDate"></div><button onclick="renderReport()">রিপোর্ট দেখুন</button></div><div id="reportSummary"></div><div class="actions"><button onclick="exportCSV()">CSV / Excel ডাউনলোড</button><button class="secondary" onclick="exportPNG()">PNG ছবি ডাউনলোড</button></div><div id="reportTable" style="margin-top:14px"></div></div></section>
+<section id="calc" class="page hidden"><div class="layout">
+<div class="panel"><h2 class="section-title">ক্যাশ আউট ক্যালকুলেটর</h2>
+<div class="fieldgrid"><button id="ccBk" onclick="ccPick('bkash')">বিকাশ</button><button id="ccNg" class="secondary" onclick="ccPick('nagad')">নগদ</button>
+<div class="field full"><label for="ccAmount">টাকার পরিমাণ (৳)</label><input id="ccAmount" type="number" min="0" step="any" placeholder="0" inputmode="decimal"></div></div>
+</div>
+<div class="panel"><div class="preview" style="margin-bottom:12px"><div class="klabel">ক্যাশ আউট চার্জ</div><div class="kvalue green" id="ccFee">৳0.00</div></div>
+<pre id="ccList" style="margin:0;white-space:pre-wrap;font:inherit;line-height:1.9"></pre><div class="actions"><button onclick="ccCopy()">হিসাব কপি করুন</button></div></div>
+</div></section>
+<section id="backup" class="page hidden"><div class="layout"><div class="panel"><h2 class="section-title">নাম্বার (ক্যালকুলেটর কপির জন্য)</h2><div id="ccPhoneBox"><div class="field" style="margin-top:12px"><label for="ccPhone">নাম্বার</label><div style="display:flex;gap:8px"><input id="ccPhone" type="tel" inputmode="tel" placeholder="01XXXXXXXXX" autocomplete="off"><button id="ccSaveBtn" onclick="ccSave()">সেভ</button></div></div>
+<div class="actions" id="ccSaved"></div></div></div><div class="panel"><h2 class="section-title">খরচ ও চার্জ সেটিংস</h2>
+
+<div class="fieldgrid">
+<div class="field"><label>কেনার USD খরচ / ১,০০০ USDT</label><input id="setBuyUsd" type="number" min="0" step="any" value="2"></div>
+<div class="field"><label>বিক্রির USD খরচ / ১,০০০ USDT</label><input id="setSellUsd" type="number" min="0" step="any" value="2"></div>
+<div class="field"><label>কেনার Send Money খরচ / ট্রানজেকশন (BDT)</label><input id="setBuyFee" type="number" min="0" step="any" value="5"></div>
+<div class="field"><label>নগদ ক্যাশ আউট চার্জ / ১,০০০ টাকায় (BDT)</label><input id="setNagad" type="number" min="0" step="any" value="15"></div>
+<div class="field"><label>বিকাশ ক্যাশ আউট চার্জ / ১,০০০ টাকায় (BDT)</label><input id="setBkash" type="number" min="0" step="any" value="18.5"></div>
+</div><div class="actions"><button onclick="saveSettings()">খরচের সেটিংস সেভ করুন</button><button class="secondary" onclick="resetSettings()">ডিফল্টে ফিরিয়ে আনুন</button></div>
+</div><div class="panel"><h2 class="section-title">ডেটা ব্যাকআপ</h2><p class="hint">ব্রাউজারের ডেটা মুছে গেলে হিসাব হারাতে পারে। তাই নিয়মিত ব্যাকআপ ফাইল ডাউনলোড করে রাখুন।</p><div class="actions"><button onclick="backupJSON()">ব্যাকআপ ডাউনলোড (JSON)</button><button class="secondary" onclick="document.getElementById('restoreFile').click()">ব্যাকআপ ফিরিয়ে আনুন</button><input id="restoreFile" type="file" accept=".json,application/json" class="hidden"></div></div><div class="panel"><h2 class="section-title">সতর্কতা</h2><div class="actions"><button class="danger" onclick="clearAll()">সব হিসাব মুছে ফেলুন</button></div></div></div></section>
+<div class="foot">Developer By Shamim</div></main><div class="toast" id="toast"></div>
+<script>
+const KEY='usdt_business_manager_v1'; let tx=[]; let reportTx=[];
+const $=id=>document.getElementById(id); const money=n=>'৳'+(Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); const qty=n=>(Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:8});
+function today(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');tx=Array.isArray(x)?x:[]}catch(e){tx=[]} $('date').value=today();$('fromDate').value=today();$('toDate').value=today(); renderAll()}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(tx));return true}catch(e){toast('সেভ করা যায়নি—ব্রাউজারের স্টোরেজ পরীক্ষা করুন।',true);return false}}
+function toast(msg,bad=false){let el=$('toast');el.textContent=msg;el.style.display='block';el.className='toast '+(bad?'err':'ok');clearTimeout(el._t);el._t=setTimeout(()=>el.style.display='none',bad?5000:2800)}
+function showPage(page,kind){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(page).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='entry'&&kind){$('type').value=kind;updateEntryDefaults()}if(page==='calc')ccUpdate();if(page==='transactions')renderTransactions();if(page==='reports')renderReport();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+const DEFAULT_SETTINGS={buyUsdPer1000:2,sellUsdPer1000:2,buyLocalCharge:5,sellCustomerCharge:18.5,nagadPer1000:15,bkashPer1000:18.5};
+let settings={...DEFAULT_SETTINGS};
+function loadSettings(){try{settings={...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem('usdt_business_settings_v1')||'{}')}}catch(e){settings={...DEFAULT_SETTINGS}}}
+function saveSettings(){const vals={buyUsdPer1000:Number($('setBuyUsd').value),sellUsdPer1000:Number($('setSellUsd').value),buyLocalCharge:Number($('setBuyFee').value),nagadPer1000:Number($('setNagad').value),bkashPer1000:Number($('setBkash').value)};if(Object.values(vals).some(v=>!Number.isFinite(v)||v<0)){toast('খরচের মান ০ বা তার বেশি হতে হবে।',true);return}settings={...settings,...vals};localStorage.setItem('usdt_business_settings_v1',JSON.stringify(settings));toast('খরচের সেটিংস সেভ হয়েছে ✓');syncCashoutCharge();renderAll()}
+function resetSettings(){$('setBuyUsd').value=DEFAULT_SETTINGS.buyUsdPer1000;$('setSellUsd').value=DEFAULT_SETTINGS.sellUsdPer1000;$('setBuyFee').value=DEFAULT_SETTINGS.buyLocalCharge;$('setNagad').value=DEFAULT_SETTINGS.nagadPer1000;$('setBkash').value=DEFAULT_SETTINGS.bkashPer1000;settings={...DEFAULT_SETTINGS};localStorage.setItem('usdt_business_settings_v1',JSON.stringify(settings));toast('ডিফল্ট সেটিংস ফিরিয়ে আনা হয়েছে');syncCashoutCharge();renderAll()}
+function usdExpense(t){return (Number(t.usdExpenseAmount ?? ((Number(t.amount)||0)*(Number(t.type==='buy'?settings.buyUsdPer1000:settings.sellUsdPer1000))/1000))||0)*(Number(t.feeRate ?? t.rate)||0)}
+function localCharge(t){return Number(t.localCharge ?? (t.type==='buy'?settings.buyLocalCharge:settings.sellCustomerCharge))||0}
+function buyTotalCost(t){return (Number(t.amount)||0)*(Number(t.rate)||0)+usdExpense(t)+localCharge(t)+(Number(t.fee)||0)}
+function sellNetReceive(t){return (Number(t.amount)||0)*(Number(t.rate)||0)-usdExpense(t)-(Number(t.fee)||0)+localCharge(t)}
+function totals(){let bought=0,sold=0,buyCost=0,sellNet=0,inventory=0,cost=0,realized=0;const sorted=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));for(const t of sorted){if(t.type==='buy'){bought+=t.amount;buyCost+=buyTotalCost(t);inventory+=t.amount;cost+=buyTotalCost(t)}else{sold+=t.amount;sellNet+=sellNetReceive(t);const avg=inventory>0?cost/inventory:0;realized+=sellNetReceive(t)-avg*t.amount;inventory-=t.amount;cost-=avg*t.amount;if(inventory<1e-8){inventory=0;cost=0}}}return{bought,sold,buyCost,sellNet,inventory,cost,realized,avg:inventory>0?cost/inventory:0}}
+function renderAll(){const a=totals();$('balance').textContent=qty(a.inventory);$('buyCost').textContent=money(a.buyCost);$('sellRevenue').textContent=money(a.sellNet);$('realized').textContent=money(a.realized);$('realized').className='kvalue '+(a.realized>=0?'green':'red');$('avgCost').textContent=money(a.avg)+' / USDT';$('totalBought').textContent=qty(a.bought)+' USDT';$('totalSold').textContent=qty(a.sold)+' USDT';$('count').textContent=tx.length;renderRecent();renderTransactions();renderReport()}
+function fmtDate(d){return d||'—'}
+function tableHTMLold(items,includeActions=false){if(!items.length)return '<div class="empty">এখনও কোনো লেনদেন নেই</div>';return '<div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>ধরন</th><th>USDT</th><th>রেট</th><th>USD খরচ</th><th>চার্জ (BDT)</th><th>অতিরিক্ত ফি</th><th>মোট / নেট</th><th>নোট</th>'+(includeActions?'<th>অ্যাকশন</th>':'')+'</tr></thead><tbody>'+items.map(t=>'<tr><td>'+fmtDate(t.date)+'</td><td><span class="badge '+t.type+'">'+(t.type==='buy'?'কেনা':'বিক্রি')+'</span></td><td>'+qty(t.amount)+'</td><td>'+money(t.rate)+'</td><td>'+(Number(t.usdExpenseAmount ?? ((Number(t.amount)||0)*(Number(t.type==='buy'?settings.buyUsdPer1000:settings.sellUsdPer1000))/1000)).toFixed(4)+' USD ('+money(usdExpense(t))+')')+'</td><td>'+money(localCharge(t))+'</td><td>'+money(Number(t.fee)||0)+'</td><td><strong>'+(t.type==='buy'?money(buyTotalCost(t)):money(sellNetReceive(t)))+'</strong></td><td>'+esc(t.note||'—')+'</td>'+(includeActions?'<td><button class="danger small" onclick="deleteTx(&quot;'+t.id+'&quot;)">মুছুন</button></td>':'')+'</tr>').join('')+'</tbody></table></div>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderRecent(){$('recentTable').innerHTML=tableHTML([...tx].sort((a,b)=>b.created.localeCompare(a.created)).slice(0,5))}
+function renderTransactions(){if(!$('allTable'))return;let items=[...tx].sort((a,b)=>b.date.localeCompare(a.date)||b.created.localeCompare(a.created));const d=$('filterDate').value,typ=$('filterType').value;if(d)items=items.filter(t=>t.date===d);if(typ!=='all')items=items.filter(t=>t.type===typ);$('allTable').innerHTML=tableHTML(items,true)}
+function clearFilter(){$('filterDate').value='';$('filterType').value='all';renderTransactions()}
+function resetForm(){$('type').value='buy';$('date').value=today();$('amount').value='';$('rate').value='';$('usdExpenseAmount').value='0';$('localCharge').value=String(settings.buyLocalCharge);if($('cashoutMethod'))$('cashoutMethod').value='Nagad';syncCashoutCharge();$('fee').value='0';$('note').value='';updatePreview()}
+function avgBuyRate(){let inv=0,rc=0;const sorted=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));for(const x of sorted){if(x.type==='buy'){inv+=x.amount;rc+=x.amount*x.rate}else{const avg=inv>0?rc/inv:0;inv-=x.amount;rc-=avg*x.amount;if(inv<1e-8){inv=0;rc=0}}}return inv>0?rc/inv:0}
+function sellCashoutCharge(){const base=(Number($('amount').value)||0)*(Number($('rate').value)||0);const per=($('cashoutMethod')?.value==='bKash')?Number(settings.bkashPer1000):Number(settings.nagadPer1000);return Number((base/1000*per).toFixed(2))}
+function syncCashoutCharge(){const cm=$('cashoutMethod');if(cm){cm.options[0].text='নগদ — হাজারে ৳'+settings.nagadPer1000;cm.options[1].text='বিকাশ — হাজারে ৳'+settings.bkashPer1000}const isBuy=$('type').value==='buy';const cf=$('cashoutField');if(cf)cf.style.display=isBuy?'none':'';if(isBuy){$('localCharge').value=String(settings.buyLocalCharge)}else{$('localCharge').value=sellCashoutCharge()}if(typeof updatePreview==='function')updatePreview()}
+function updateEntryDefaults(){const type=$('type').value;const amount=Number($('amount').value)||0;const ratePer1000=Number(type==='buy'?settings.buyUsdPer1000:settings.sellUsdPer1000)||0;$('usdExpenseAmount').value=(amount*ratePer1000/1000).toFixed(6);$('localCharge').value=String(type==='buy'?settings.buyLocalCharge:settings.sellCustomerCharge);if($('cashoutMethod'))$('cashoutMethod').value='Nagad';syncCashoutCharge();updatePreview()}
+function markBad(id){const el=$(id);if(!el)return;const d=el.closest&&el.closest('details');if(d)d.open=true;el.classList.add('bad');try{el.focus()}catch(e){}}
+document.addEventListener('input',e=>{if(e.target&&e.target.classList)e.target.classList.remove('bad')});
+function validateEntry(type,date,amount,rate,fee){
+ if(!date)return{field:'date',msg:'তারিখ দিন।'};
+ const td=today();
+ if(date>td)return{field:'date',msg:'ভুল তারিখ! ভবিষ্যতের তারিখে লেনদেন করা যাবে না।'};
+ if(date<'2015-01-01')return{field:'date',msg:'ভুল তারিখ! তারিখটি অনেক পুরোনো।'};
+ if(!Number.isFinite(amount)||amount<=0)return{field:'amount',msg:'ভুল পরিমাণ! USDT পরিমাণ ০ এর বেশি হতে হবে।'};
+ if(!Number.isFinite(rate)||rate<=0)return{field:'rate',msg:'ভুল রেট! রেট ০ এর বেশি হতে হবে।'};
+ if(rate<50||rate>500)return{field:'rate',msg:'ভুল রেট! ১ USDT এর রেট ৫০ থেকে ৫০০ টাকার মধ্যে হতে হবে।'};
+ if(!Number.isFinite(fee)||fee<0)return{field:'fee',msg:'ভুল ফি! ফি ঋণাত্মক বা ফাঁকা অক্ষর হতে পারবে না।'};
+ if(fee>amount*rate)return{field:'fee',msg:'ভুল ফি! অতিরিক্ত ফি লেনদেনের মোট টাকার চেয়ে বেশি হতে পারবে না।'};
+ return null}
+function unusualRate(rate){const last=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created)).pop();if(!last||!(last.rate>0))return null;const dev=Math.abs(rate-last.rate)/last.rate;return dev>0.1?last.rate:null}
+function saveTransaction(){const type=$('type').value,date=$('date').value,amount=Number($('amount').value),rate=Number($('rate').value),fee=Number($('fee').value||0),usdExpenseAmount=Number($('usdExpenseAmount').value||0),localCharge=Number($('localCharge').value||0);if(!date||!Number.isFinite(amount)||amount<=0||!Number.isFinite(rate)||rate<=0||!Number.isFinite(fee)||fee<0||!Number.isFinite(usdExpenseAmount)||usdExpenseAmount<0||!Number.isFinite(localCharge)||localCharge<0){toast('তারিখ, পরিমাণ, রেট ও ফি সঠিকভাবে দিন।',true);return}const bad=validateEntry(type,date,amount,rate,fee);if(bad){markBad(bad.field);toast(bad.msg,true);return}const ur=unusualRate(rate);const a=totals();if(type==='sell'&&amount>a.inventory+1e-8){toast('ব্যালেন্সের চেয়ে বেশি USDT বিক্রি করা যাবে না। বর্তমান ব্যালেন্স '+qty(a.inventory),true);return}const t={id:String(Date.now())+'_'+Math.random().toString(36).slice(2,7),type,date,amount,rate,fee,usdExpenseAmount,localCharge,feeRate:(type==='sell'?(avgBuyRate()||rate):rate),note:$('note').value.trim(),created:new Date().toISOString()};if(type==='sell'&&!(sellNetReceive(t)>0)){markBad('fee');toast('ভুল হিসাব! খরচ/ফি বেশি হওয়ায় বিক্রির নেট টাকা ০ বা ঋণাত্মক হচ্ছে। লেনদেন সেভ হয়নি।',true);return}tx.push(t);if(!persist()){tx.pop();return}toast('লেনদেন সেভ হয়েছে ✓'+(ur?' (লক্ষ্য করুন: রেট আগের রেট '+ur+' থেকে অনেক আলাদা)':''));resetForm();renderAll();showPage('dashboard')}
+function deleteTx(id){if(!confirm('এই লেনদেনটি মুছে ফেলবেন?'))return;tx=tx.filter(t=>t.id!==id);if(persist()){renderAll();toast('লেনদেন মুছে ফেলা হয়েছে')}}
+function updatePreview(){let amount=Number($('amount').value),rate=Number($('rate').value),fee=Number($('fee').value||0),type=$('type').value;let ratePer1000=Number(type==='buy'?settings.buyUsdPer1000:settings.sellUsdPer1000)||0;let usd=amount*ratePer1000/1000;$('usdExpenseAmount').value=usd.toFixed(6);if(type==='sell')$('localCharge').value=sellCashoutCharge();let local=Number($('localCharge').value||0);if(amount>0&&rate>0&&fee>=0&&usd>=0&&local>=0){let base=amount*rate,feeR=type==='sell'?(avgBuyRate()||rate):rate,usdBdt=usd*feeR,total=type==='buy'?base+usdBdt+local+fee:base-usdBdt-fee+local;$('calcPreview').innerHTML='লেনদেনের মূল্য: <strong>'+money(base)+'</strong><br>USD খরচ: <strong>'+usd.toFixed(4)+' USD = '+money(usdBdt)+'</strong>'+(type==='sell'?' <small>(কেনার গড় রেট '+feeR.toFixed(2)+')</small>':'')+'<br>'+(type==='buy'?'Send Money খরচ: ':'কাস্টমার চার্জ আয়: ')+'<strong>'+money(local)+'</strong><br>অতিরিক্ত ফি: <strong>'+money(fee)+'</strong><br>'+(type==='buy'?'মোট খরচ: ':'নেট প্রাপ্তি: ')+'<strong style="color:var(--green)">'+money(total)+'</strong>'}else $('calcPreview').textContent='পরিমাণ, রেট ও খরচ লিখলে এখানে হিসাব দেখা যাবে.'}
+function filteredReport(){let f=$('fromDate').value,t=$('toDate').value;return tx.filter(x=>(!f||x.date>=f)&&(!t||x.date<=t)).sort((a,b)=>a.date.localeCompare(b.date)||a.created.localeCompare(b.created))}
+function renderReport(){if(!$('reportSummary'))return;reportTx=filteredReport();let buys=reportTx.filter(x=>x.type==='buy'),sells=reportTx.filter(x=>x.type==='sell');let bq=buys.reduce((s,x)=>s+x.amount,0),bc=buys.reduce((s,x)=>s+buyTotalCost(x),0),sq=sells.reduce((s,x)=>s+x.amount,0),sr=sells.reduce((s,x)=>s+sellNetReceive(x),0);let profit=0,inv=0,cost=0;const before=[...tx].filter(x=>x.date<($('fromDate').value||'0000')).sort((a,b)=>a.date.localeCompare(b.date)||a.created.localeCompare(b.created));for(const x of before){if(x.type==='buy'){inv+=x.amount;cost+=buyTotalCost(x)}else{let avg=inv>0?cost/inv:0;inv-=x.amount;cost-=avg*x.amount}}for(const x of reportTx){if(x.type==='buy'){inv+=x.amount;cost+=buyTotalCost(x)}else{let avg=inv>0?cost/inv:0;profit+=sellNetReceive(x)-avg*x.amount;inv-=x.amount;cost-=avg*x.amount}}$('reportSummary').innerHTML='<div class="cards" style="margin-bottom:12px"><div class="card"><div class="klabel">কেনা</div><div class="kvalue">'+qty(bq)+'</div><div class="sub">'+money(bc)+' খরচ</div></div><div class="card"><div class="klabel">বিক্রি</div><div class="kvalue">'+qty(sq)+'</div><div class="sub">'+money(sr)+' নেট প্রাপ্তি</div></div><div class="card"><div class="klabel">এই সময়ের লাভ/ক্ষতি</div><div class="kvalue '+(profit>=0?'green':'red')+'">'+money(profit)+'</div></div><div class="card"><div class="klabel">লেনদেন</div><div class="kvalue">'+reportTx.length+'</div><div class="sub">নির্বাচিত সময়সীমা</div></div></div>';$('reportTable').innerHTML=reportTableHTML(reportTx)}
+function profitMap(){const m={};let inv=0,cost=0;const sorted=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));for(const t of sorted){if(t.type==='buy'){inv+=t.amount;cost+=buyTotalCost(t)}else{const avg=inv>0?cost/inv:0;m[t.id]={profit:sellNetReceive(t)-avg*t.amount,avg};inv-=t.amount;cost-=avg*t.amount;if(inv<1e-8){inv=0;cost=0}}}return m}
+function reportTotals(items,pm){let bq=0,bc=0,sq=0,sr=0,pr=0;for(const t of items){if(t.type==='buy'){bq+=t.amount;bc+=buyTotalCost(t)}else{sq+=t.amount;sr+=sellNetReceive(t);pr+=(pm[t.id]?pm[t.id].profit:0)}}return{bq,bc,sq,sr,pr}}
+function exportCSV(){reportTx=filteredReport();if(!reportTx.length){toast('ডাউনলোডের জন্য লেনদেন নেই।',true);return}const pm=profitMap(),T=reportTotals(reportTx,pm);const rows=[['Date','Type','USDT Amount','Rate BDT','USD Expense','USD Expense BDT','Local Charge BDT','Extra Fee BDT','Gross BDT','Net/Total BDT','Avg Buy Cost Rate BDT','Profit/Loss BDT','Note'],...reportTx.map(t=>{const p=pm[t.id];return[t.date,t.type==='buy'?'BUY':'SELL',t.amount,t.rate,Number(t.usdExpenseAmount||0),usdExpense(t).toFixed(2),localCharge(t),t.fee,(t.amount*t.rate).toFixed(2),(t.type==='buy'?buyTotalCost(t):sellNetReceive(t)).toFixed(2),p?p.avg.toFixed(2):'',p?p.profit.toFixed(2):'',t.note||'']}),[],['TOTAL','','','','','','','','','','','',''],['Total Buy USDT',T.bq],['Total Buy Cost BDT',T.bc.toFixed(2)],['Total Sell USDT',T.sq],['Total Sell Net BDT',T.sr.toFixed(2)],['Net Profit/Loss BDT',T.pr.toFixed(2)],['Transactions',reportTx.length]];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download(new Blob([csv],{type:'text/csv;charset=utf-8;'}),'usdt-report-'+today()+'.csv')}
+function reportTableHTML(items){if(!items.length)return tableHTMLold(items,false);const pm=profitMap(),T=reportTotals(items,pm);const pc=v=>'<strong class="'+(v>=0?'green':'red')+'">'+(v>0?'+':'')+money(v)+'</strong>';
+const desk='<div class="txtable"><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>ধরন</th><th>USDT</th><th>রেট</th><th>মোট / নেট</th><th>গড় কেনা রেট</th><th>লাভ / ক্ষতি</th><th>নোট</th></tr></thead><tbody>'+items.map(t=>{const p=pm[t.id],buy=t.type==='buy';return'<tr><td>'+fmtDate(t.date)+'</td><td><span class="badge '+t.type+'">'+(buy?'কেনা':'বিক্রি')+'</span></td><td>'+qty(t.amount)+'</td><td>'+money(t.rate)+'</td><td><strong>'+money(buy?buyTotalCost(t):sellNetReceive(t))+'</strong></td><td>'+(p?money(p.avg):'—')+'</td><td>'+(p?pc(p.profit):'—')+'</td><td>'+esc(t.note||'—')+'</td></tr>'}).join('')+'<tr><td colspan="6"><strong>মোট লাভ / ক্ষতি</strong></td><td>'+pc(T.pr)+'</td><td></td></tr></tbody></table></div></div>';
+const cards='<div class="txcards">'+items.map(t=>{const p=pm[t.id],buy=t.type==='buy';return'<div class="txc"><div class="txr"><span class="badge '+t.type+'">'+(buy?'কেনা':'বিক্রি')+'</span><span class="sub">'+fmtDate(t.date)+'</span></div><div class="txm"><strong>'+qty(t.amount)+' USDT</strong><span class="sub">@ '+money(t.rate)+'</span></div><div class="txr"><span class="sub">'+(buy?'মোট খরচ':'নেট প্রাপ্তি')+'</span><strong>'+money(buy?buyTotalCost(t):sellNetReceive(t))+'</strong></div>'+(p?'<div class="txr"><span class="sub">গড় কেনা রেট '+money(p.avg)+'</span></div><div class="txr"><span class="sub">লাভ / ক্ষতি</span>'+pc(p.profit)+'</div>':'')+(t.note?'<div class="sub">'+esc(t.note)+'</div>':'')+'</div>'}).join('')+'<div class="txc"><div class="txr"><strong>মোট লাভ / ক্ষতি</strong>'+pc(T.pr)+'</div></div></div>';return desk+cards}
+function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function exportPNG(){reportTx=filteredReport();const pm=profitMap(),T=reportTotals(reportTx,pm);const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');const W=1100,rowH=36,top=235,n=Math.max(1,reportTx.length);canvas.width=W;canvas.height=top+(n+1)*rowH+60;ctx.fillStyle='#081729';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#eaf2ff';ctx.font='bold 30px sans-serif';ctx.fillText('USDT Business Manager',40,48);ctx.font='16px sans-serif';ctx.fillStyle='#9db1cb';ctx.fillText('Report: '+($('fromDate').value||'All')+' to '+($('toDate').value||'All'),40,80);const G='#2bd49a',R='#f6465d',fm=v=>(v>0?'+':'')+Number(v).toFixed(2);ctx.font='bold 19px sans-serif';ctx.fillStyle=G;ctx.fillText('Buy: '+T.bq.toFixed(4)+' USDT',40,125);ctx.fillStyle=R;ctx.fillText('Sell: '+T.sq.toFixed(4)+' USDT',350,125);ctx.fillStyle=T.pr>=0?G:R;ctx.fillText('Net P/L: '+fm(T.pr)+' BDT',660,125);ctx.fillStyle='#9db1cb';ctx.font='15px sans-serif';ctx.fillText('Buy cost: '+T.bc.toFixed(2)+' BDT',40,155);ctx.fillText('Sell net: '+T.sr.toFixed(2)+' BDT',350,155);ctx.fillText('Transactions: '+reportTx.length,660,155);ctx.fillStyle='#eaf2ff';ctx.font='bold 15px sans-serif';const heads=['Date','Type','USDT','Rate','Total / Net BDT','Avg Cost','Profit / Loss'],xs=[40,160,265,400,520,720,880];heads.forEach((h,i)=>ctx.fillText(h,xs[i],210));reportTx.forEach((t,i)=>{const y=top+i*rowH,p=pm[t.id],buy=t.type==='buy';ctx.fillStyle=i%2?'#0e2035':'#10253d';ctx.fillRect(25,y,W-50,rowH);ctx.font='14px sans-serif';const vals=[t.date,buy?'BUY':'SELL',qty(t.amount),Number(t.rate).toFixed(2),(buy?buyTotalCost(t):sellNetReceive(t)).toFixed(2),p?p.avg.toFixed(2):'-',p?fm(p.profit):'-'];vals.forEach((v,j)=>{ctx.fillStyle=j===1?(buy?G:R):(j===6&&p?(p.profit>=0?G:R):'#eaf2ff');ctx.fillText(String(v),xs[j],y+23)})});const yt=top+reportTx.length*rowH;ctx.fillStyle='#16324f';ctx.fillRect(25,yt,W-50,rowH);ctx.font='bold 15px sans-serif';ctx.fillStyle='#eaf2ff';ctx.fillText('TOTAL',xs[0],yt+23);ctx.fillStyle=T.pr>=0?G:R;ctx.fillText(fm(T.pr),xs[6],yt+23);ctx.fillStyle='#9db1cb';ctx.font='12px sans-serif';ctx.fillText('Report generated by Shamim',40,canvas.height-22);canvas.toBlob(b=>download(b,'usdt-report-'+today()+'.png'))}
+function backupJSON(){download(new Blob([JSON.stringify({app:'USDT Business Manager',version:1,exportedAt:new Date().toISOString(),transactions:tx},null,2)],{type:'application/json'}),'usdt-backup-'+today()+'.json')}
+$('cashoutMethod').addEventListener('change',syncCashoutCharge);syncCashoutCharge();$('amount').addEventListener('input',updatePreview);$('type').addEventListener('change',updateEntryDefaults);$('rate').addEventListener('input',updatePreview);$('fee').addEventListener('input',updatePreview);$('localCharge').addEventListener('input',updatePreview);
+$('restoreFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());const arr=Array.isArray(data)?data:data.transactions;if(!Array.isArray(arr)||!arr.every(t=>['buy','sell'].includes(t.type)&&Number(t.amount)>0&&Number(t.rate)>0)){throw Error('invalid')}if(!confirm('বর্তমান হিসাবের সঙ্গে ব্যাকআপের লেনদেন যোগ করবেন?'))return;const ids=new Set(tx.map(t=>t.id));arr.forEach(t=>{if(!ids.has(t.id)){tx.push({...t,id:t.id||String(Date.now())+Math.random(),created:t.created||new Date().toISOString()})}});if(persist()){renderAll();toast('ব্যাকআপ ফিরিয়ে আনা হয়েছে ✓')}}catch(err){toast('ব্যাকআপ ফাইলটি সঠিক নয়।',true)}finally{e.target.value=''}});
+function clearAll(){if(!confirm('সব লেনদেন স্থায়ীভাবে মুছবেন? আগে ব্যাকআপ নিন।'))return;if(!confirm('নিশ্চিত? এই কাজ ফিরিয়ে নেওয়া যাবে না।'))return;tx=[];if(persist()){renderAll();toast('সব হিসাব মুছে ফেলা হয়েছে')}}
+loadSettings();$('setBuyUsd').value=settings.buyUsdPer1000;$('setSellUsd').value=settings.sellUsdPer1000;$('setBuyFee').value=settings.buyLocalCharge;$('setNagad').value=settings.nagadPer1000;$('setBkash').value=settings.bkashPer1000;load();
+function applyTheme(t){if(t&&t!=='auto')document.documentElement.setAttribute('data-theme',t);else document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('usdt_theme3',t||'auto')}catch(e){}}
+(function(){const T=[['neon','নিয়ন সবুজ','#020806','#00ff48'],['binance','বাইন্যান্স স্টাইল','#0b0e11','#fcd535'],['auto','অটো','#eef2f6','#0f766e'],['blue','নীল','#f1f4fb','#2447d6'],['gold','সোনালি ডার্ক','#14120e','#d9a441'],['green','ক্লাসিক সবুজ','#f4f1e8','#1f5f3f'],['purple','বেগুনি ডার্ক','#120d1f','#a78bfa'],['pink','বিকাশ গোলাপি','#fdf1f6','#e2136e'],['orange','নগদ কমলা','#fff5ec','#d65a05'],['mono','সাদা-কালো','#f5f5f5','#111111'],['bank','ব্যাংক স্টাইল','#eef1f5','#1e3a5f']];
+let cur='neon';try{cur=localStorage.getItem('usdt_theme3')||'neon'}catch(e){}
+const menu=$('themeMenu');
+function mark(){menu.querySelectorAll('button').forEach(b=>b.classList.toggle('sel',b.dataset.t===cur))}
+T.forEach(([v,n,bg,ac])=>{const b=document.createElement('button');b.dataset.t=v;const d=document.createElement('span');d.className='dot';d.style.background='linear-gradient(135deg,'+bg+' 50%,'+ac+' 50%)';b.append(d,document.createTextNode(n));b.onclick=()=>{cur=v;applyTheme(v);mark();menu.classList.add('hidden')};menu.append(b)});
+$('themeBtn').onclick=e=>{e.stopPropagation();menu.classList.toggle('hidden');if(!menu.classList.contains('hidden')){menu.style.left='';menu.style.right='0';var r=menu.getBoundingClientRect();if(r.left<8){menu.style.right='auto';menu.style.left='0';r=menu.getBoundingClientRect()}if(r.right>innerWidth-8){menu.style.left='auto';menu.style.right='0'}}};
+document.addEventListener('click',e=>{if(!menu.contains(e.target))menu.classList.add('hidden')});
+applyTheme(cur);mark()})();
+
+let ccM='bkash',ccNums=[];try{ccNums=JSON.parse(localStorage.getItem('saved_numbers')||'[]')}catch(e){}
+function ccCalc(){const a=Math.max(0,Number($('ccAmount').value)||0),r=Number(ccM==='bkash'?settings.bkashPer1000:settings.nagadPer1000)||0,f=a*r/1000;return{a,f,t:a+f}}
+function ccText(){const c=ccCalc(),ph=$('ccPhone').value.trim();return 'সেন্ড মানি হিসাব\nমাধ্যম: '+(ccM==='bkash'?'বিকাশ':'নগদ')+'\nমূল টাকা: '+money(c.a)+'\nচার্জ: '+money(c.f)+'\nসর্বমোট: '+money(c.t)+(ph?'\nনাম্বার: '+ph:'')}
+function ccUpdate(){$('ccFee').textContent=money(ccCalc().f);$('ccList').textContent=ccText()}
+function ccPick(m){ccM=m;$('ccBk').className=m==='bkash'?'':'secondary';$('ccNg').className=m==='nagad'?'':'secondary';ccUpdate()}
+function ccPersist(){try{localStorage.setItem('saved_numbers',JSON.stringify(ccNums))}catch(e){}}
+function ccRender(){const box=$('ccSaved');box.textContent='';ccNums.forEach((n,i)=>{const a=document.createElement('button');a.className='secondary small';a.textContent=n;a.onclick=()=>{$('ccPhone').value=n;ccStore();ccUpdate();toast('নাম্বার বাছা হয়েছে ✓')};const x=document.createElement('button');x.className='danger small';x.textContent='✕';x.setAttribute('aria-label','মুছুন');x.onclick=()=>{ccNums.splice(i,1);ccPersist();ccRender()};box.append(a,x)})}
+function ccSave(){const n=$('ccPhone').value.trim();if(!n)return;if(!ccNums.includes(n)){ccNums.unshift(n);ccPersist();ccRender()}ccStore();ccUpdate();toast('নাম্বার সেভ হয়েছে ✓')}
+function ccCopy(){const t=ccText(),ok=()=>toast('হিসাব কপি হয়েছে ✓'),fb=()=>{const e=document.createElement('textarea');e.value=t;document.body.appendChild(e);e.select();document.execCommand('copy');e.remove();ok()};if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(ok).catch(fb);else fb()}
+$('ccAmount').addEventListener('input',ccUpdate);function ccStore(){try{localStorage.setItem('active_number',$('ccPhone').value.trim())}catch(e){}}
+try{$('ccPhone').value=localStorage.getItem('active_number')||''}catch(e){}
+$('ccPhone').addEventListener('input',()=>{ccStore();ccUpdate()});ccRender();ccUpdate();
+function tableHTML(items,inc=false){if(!items.length)return tableHTMLold(items,inc);return '<div class="txtable">'+tableHTMLold(items,inc)+'</div><div class="txcards">'+items.map(t=>{const buy=t.type==='buy';return '<div class="txc"><div class="txr"><span class="badge '+t.type+'">'+(buy?'কেনা':'বিক্রি')+'</span><span class="sub">'+fmtDate(t.date)+'</span></div><div class="txm"><strong>'+qty(t.amount)+' USDT</strong><span class="sub">@ '+money(t.rate)+'</span></div><div class="txr"><span class="sub">'+(buy?'মোট খরচ':'নেট প্রাপ্তি')+'</span><strong class="'+(buy?'':'green')+'">'+(buy?money(buyTotalCost(t)):money(sellNetReceive(t)))+'</strong></div>'+(t.note?'<div class="sub">'+esc(t.note)+'</div>':'')+(inc?'<div class="txr"><span></span><button class="danger small" onclick="deleteTx(&quot;'+t.id+'&quot;)">মুছুন</button></div>':'')+'</div>'}).join('')+'</div>'}
+function segSync(){const v=$('type').value;document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.k===v))}
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{$('type').value=b.dataset.k;updateEntryDefaults();segSync()});
+(function(){const u=updateEntryDefaults;updateEntryDefaults=function(){u.apply(this,arguments);segSync()}})();
+$('type').addEventListener('change',segSync);
+
+renderRecent=function(){const it=[...tx].sort((a,b)=>b.created.localeCompare(a.created)).slice(0,5);if(!it.length){$('recentTable').innerHTML='<div class="panel empty">এখনও কোনো লেনদেন নেই</div>';return}
+$('recentTable').innerHTML='<div class="panel rows">'+it.map(t=>{const buy=t.type==='buy';return '<div class="row"><div class="ico '+t.type+'">'+(buy?'↓':'↑')+'</div><div class="rm"><strong>USDT '+(buy?'কেনা':'বিক্রি')+'</strong><span class="sub">'+fmtDate(t.date)+(t.note?' · '+esc(t.note):'')+'</span></div><div class="rr"><strong>'+(buy?'+':'−')+qty(t.amount)+'</strong><span class="'+(buy?'sub':'green')+'">'+(buy?money(buyTotalCost(t)):money(sellNetReceive(t)))+'</span></div></div>'}).join('')+'</div>'};
+function dashExtras(){const a=totals();const sorted=[...tx].sort((x,y)=>(x.date+' '+x.created).localeCompare(y.date+' '+y.created));let inv=0,cost=0,re=0;const pts=[0];for(const t of sorted){if(t.type==='buy'){inv+=t.amount;cost+=buyTotalCost(t)}else{const avg=inv>0?cost/inv:0;re+=sellNetReceive(t)-avg*t.amount;inv-=t.amount;cost-=avg*t.amount;if(inv<1e-8){inv=0;cost=0}}pts.push(re)}
+$('realized').className='sv '+(a.realized>=0?'green':'red');$('buyCount').textContent=tx.filter(t=>t.type==='buy').length;$('sellCount').textContent=tx.filter(t=>t.type==='sell').length;$('heroVal').textContent=a.inventory>0?money(a.cost):'৳0.00';$('avgCost').textContent=a.inventory>0?money(a.avg):'—';
+const cs=a.sellNet-a.realized,roi=cs>0?a.realized/cs*100:0;const p=$('heroPill');p.textContent=(roi>=0?'▲ ':'▼ ')+Math.abs(roi).toFixed(2)+'%';p.className='chip pill '+(roi>=0?'up':'dn');
+const mn=Math.min(...pts),mx=Math.max(...pts),rg=(mx-mn)||1,W=300,H=64,pad=8;const xy=pts.map((v,i)=>[pts.length>1?i*W/(pts.length-1):0,(mx===mn)?H/2:H-pad-(v-mn)/rg*(H-2*pad)]);
+const col=pts[pts.length-1]>=0?'var(--green)':'var(--red)';let d='M'+xy.map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' L');
+$('spark').innerHTML='<defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+col+'" stop-opacity=".35"/><stop offset="1" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs><path d="'+d+' L'+W+' '+H+' L0 '+H+' Z" fill="url(#sg)"/><path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'}
+(function(){const r=renderAll;renderAll=function(){r.apply(this,arguments);dashExtras()}})();
+renderAll();
+(function(){const sp=showPage;showPage=function(pg,k){sp(pg,k);$('homeBtn').classList.toggle('hidden',pg==='dashboard')}})();
+function todayExtras(){const td=($('todPick')&&$('todPick').value)||today();let inv=0,cost=0,bq=0,bt=0,sq=0,st=0,pr=0,n=0;const sorted=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));for(const t of sorted){const isT=t.date===td;if(isT)n++;if(t.type==='buy'){inv+=t.amount;cost+=buyTotalCost(t);if(isT){bq+=t.amount;bt+=buyTotalCost(t)}}else{const net=sellNetReceive(t),avg=inv>0?cost/inv:0;if(isT){sq+=t.amount;st+=net;pr+=net-avg*t.amount}inv-=t.amount;cost-=avg*t.amount;if(inv<1e-8){inv=0;cost=0}}}
+$('todDate').textContent=fmtDate(td);$('todBuy').textContent=qty(bq)+' USDT';$('todBuyTk').textContent=money(bt);$('todSell').textContent=qty(sq)+' USDT';$('todSellTk').textContent=money(st);
+const e=$('todProfit');e.textContent=(pr>0?'+':'')+money(pr);e.className=pr>0?'green':(pr<0?'red':'');$('todNote').textContent='লেনদেন '+n+'টি';const isTd=td===today();$('todTitle').textContent=isTd?'আজকের হিসাব':'দিনের হিসাব';$('todProfitLbl').textContent=isTd?'আজকের লাভ':'এই দিনের লাভ';$('todNow').classList.toggle('hidden',isTd)}
+(function(){const r=renderAll;renderAll=function(){r.apply(this,arguments);todayExtras()}})();
+(function(){const p=$('todPick');p.value=today();const shift=n=>{const [y,m,d]=(p.value||today()).split('-').map(Number);const x=new Date(y,m-1,d+n);p.value=x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');todayExtras()};p.addEventListener('change',todayExtras);$('todPrev').onclick=()=>shift(-1);$('todNext').onclick=()=>shift(1);$('todNow').onclick=()=>{p.value=today();todayExtras()};try{todayExtras()}catch(e){}})();
+renderAll();
+
+
+(function(){const c=document.querySelector('.hero.vcard');if(!c||!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.classList.add('tilt');c.style.transform='perspective(900px) rotateY('+(x*7).toFixed(2)+'deg) rotateX('+(-y*7).toFixed(2)+'deg)'});c.addEventListener('pointerleave',()=>{c.classList.remove('tilt');c.style.transform=''})})();
+
+(function(){
+let range=7;
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+function dailyProfit(){const map={};let inv=0,cost=0;const sorted=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));for(const t of sorted){map[t.date]=map[t.date]||0;if(t.type==='buy'){inv+=t.amount;cost+=buyTotalCost(t)}else{const net=sellNetReceive(t),avg=inv>0?cost/inv:0;map[t.date]+=net-avg*t.amount;inv-=t.amount;cost-=avg*t.amount;if(inv<1e-8){inv=0;cost=0}}}return map}
+function ds(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function build(){const map=dailyProfit(),out=[],now=new Date();now.setHours(12,0,0,0);
+ if(range===12){for(let k=11;k>=0;k--){const d=new Date(now.getFullYear(),now.getMonth()-k,1,12);const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');let v=0,has=false;for(const dt in map){if(dt.slice(0,7)===key){v+=map[dt];has=true}}out.push({v,has,label:bn(d.getMonth()+1),tip:key})}}
+ else{for(let k=range-1;k>=0;k--){const d=new Date(now);d.setDate(now.getDate()-k);const key=ds(d);out.push({v:map[key]||0,has:key in map,label:bn(d.getDate()),tip:key})}}
+ return out}
+const fm=n=>'৳'+(Number(n)||0).toLocaleString('en-US',{maximumFractionDigits:0});
+function draw(){const svg=document.getElementById('pcSvg');if(!svg)return;const data=build(),W=320,H=150,top=10,bot=22,ch=H-top-bot;
+ const vals=data.map(d=>d.v),mx=Math.max(0,...vals),mn=Math.min(0,...vals),span=(mx-mn)||1;
+ const y=v=>top+(mx-v)/span*ch,zero=y(0),n=data.length,gap=n>12?2:5,bw=(W-gap*(n+1))/n;
+ let h='<line x1="0" x2="'+W+'" y1="'+zero.toFixed(1)+'" y2="'+zero.toFixed(1)+'" stroke="var(--line)" stroke-width="1"/>';
+ const step=n>20?5:1;
+ data.forEach((d,i)=>{const x=gap+i*(bw+gap),yy=y(d.v),bh=Math.max(Math.abs(yy-zero),d.has?1.5:0),yt=d.v>=0?zero-bh:zero;
+  const col=d.v>=0?'var(--green)':'var(--red)';
+  if(d.has)h+='<rect class="bar" x="'+x.toFixed(1)+'" y="'+yt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="2" fill="'+col+'"><title>'+d.tip+': '+fm(d.v)+'</title></rect>';
+  else h+='<rect x="'+x.toFixed(1)+'" y="'+(zero-1).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="2" rx="1" fill="var(--line)"/>';
+  if(i%step===0||i===n-1)h+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" font-size="9.5" fill="var(--muted)">'+d.label+'</text>'});
+ svg.innerHTML=h;
+ const act=data.filter(d=>d.has),tot=data.reduce((s,d)=>s+d.v,0);
+ const worst=act.length?act.reduce((a,b)=>b.v<a.v?b:a):null,wl=document.getElementById('pcWorst');wl.textContent=worst?fm(worst.v):'—';wl.style.color=worst?(worst.v<0?'var(--red)':(worst.v>0?'var(--green)':'')):'';
+ const best=act.length?act.reduce((a,b)=>b.v>a.v?b:a):null;const bl=document.getElementById('pcBest');bl.textContent=best?fm(best.v):'—';bl.style.color=best?(best.v>0?'var(--green)':(best.v<0?'var(--red)':'')):'';
+ const al=document.getElementById('pcAvg'),av=act.length?tot/act.length:0;al.textContent=fm(av);al.style.color=av>0?'var(--green)':(av<0?'var(--red)':'');
+ document.getElementById('pcNone').classList.toggle('hidden',act.length>0)}
+document.querySelectorAll('.pseg button').forEach(b=>b.addEventListener('click',()=>{range=+b.dataset.r;document.querySelectorAll('.pseg button').forEach(x=>x.classList.toggle('on',x===b));draw()}));
+const r0=renderAll;renderAll=function(){r0.apply(this,arguments);try{draw()}catch(e){}};
+try{draw()}catch(e){}
+})();
+(function(){let cur='USDT';
+ function lastRate(){const arr=[...tx].sort((a,b)=>(a.date+' '+a.created).localeCompare(b.date+' '+b.created));const l=arr[arr.length-1];return l&&l.rate>0?Number(l.rate):0}
+ function upd(){const a=totals(),b=$('balance'),u=$('curTgl'),r=$('vRate');if(!b||!u||!r)return;
+  if(cur==='USDT'){b.textContent=qty(a.inventory);u.textContent='USDT ⇄';r.classList.add('hidden')}
+  else{const rt=lastRate(),v=a.inventory*rt;b.textContent='৳'+v.toLocaleString('en-US',{maximumFractionDigits:2});u.textContent='BDT ⇄';r.textContent=rt>0?'সর্বশেষ রেট ৳'+rt.toLocaleString('en-US',{maximumFractionDigits:2})+' অনুযায়ী':'রেট নেই—আগে একটি লেনদেন দিন';r.classList.remove('hidden')}
+  b.style.fontSize=b.textContent.length>10?'0.75em':''}
+ $('curTgl').onclick=()=>{cur=cur==='USDT'?'BDT':'USDT';upd()};
+ const r0=renderAll;renderAll=function(){r0.apply(this,arguments);upd()};upd();
+})();
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
+</body></html>
